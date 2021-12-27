@@ -9,8 +9,8 @@ if __name__ == '__main__':
     TOKEN = utilities.load_token()
 
     @bot.command(
-        help="",
-        brief=""
+        help="¿killed @killer @killed  add a teamkill to the count",
+        brief="¿killed @killer @killed  add a teamkill to the count"
     )
     async def killed(ctx, *args):
         if len(args) > 2 or len(args) == 0:
@@ -25,8 +25,8 @@ if __name__ == '__main__':
 
 
     @bot.command(
-        help="",
-        brief=""
+        help="¿leaderboard show the top 5 teamkillers",
+        brief="¿leaderboard show the top 5 teamkillers"
     )
     async def leaderboard(ctx):
         leaderboard_doc = models.leaderboard.get_leaderboard(ctx.guild.id)
@@ -45,8 +45,8 @@ if __name__ == '__main__':
 
 
     @bot.command(
-        help="",
-        brief=""
+        help="¿find @user get the teamkill stats of a specific user",
+        brief="¿find @user get the teamkill stats of a specific user"
     )
     async def find(ctx, *args):
         if len(args) > 1 or len(args) == 0:
