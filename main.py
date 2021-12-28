@@ -13,7 +13,7 @@ if __name__ == '__main__':
         brief="¿killed @killer @killed  add a teamkill to the count"
     )
     async def killed(ctx, *args):
-        if len(args) > 2 or len(args) == 0:
+        if len(args) > 2 or len(args) == 0 or args[0] == "@everyone" or args[1] == "@everyone":
             await ctx.channel.send("error")
 
         else:
@@ -49,7 +49,8 @@ if __name__ == '__main__':
         brief="¿find @user get the teamkill stats of a specific user"
     )
     async def find(ctx, *args):
-        if len(args) > 1 or len(args) == 0:
+
+        if len(args) > 1 or len(args) == 0 or args[0] == "@everyone":
             await ctx.channel.send("error")
 
         else:
