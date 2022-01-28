@@ -5,6 +5,16 @@ import models.leaderboard
 
 
 if __name__ == '__main__':
+
+    async def get_discord_username(ctx, id):
+        try:
+            killer_member = await ctx.guild.fetch_member(id)
+            return killer_member.display_name
+        except(discord.errors.NotFound):
+            return("This user is not in the server")
+
+
+
     bot = commands.Bot(command_prefix="¿")
     TOKEN = utilities.load_token()
 
@@ -32,13 +42,12 @@ if __name__ == '__main__':
         leaderboard_doc = models.leaderboard.get_leaderboard(ctx.guild.id)
 
         for killer in leaderboard_doc:
-            killer_member = await ctx.guild.fetch_member(killer["killer_id"])
-            killer_name = killer_member.display_name
+            killer_name = await get_discord_username(ctx, killer["killer_id"])
             embed = discord.Embed(title=killer_name, color=0x03f8fc)
 
             for user in killer["killed"]:
-                member = await ctx.guild.fetch_member(user)
-                embed.add_field(name=member.display_name, value=killer["killed"][user])
+                member_name = await get_discord_username(ctx, user)
+                embed.add_field(name=member_name, value=killer["killed"][user])
 
             embed.add_field(name="Total", value=killer["total"])
             await ctx.channel.send(embed=embed)
