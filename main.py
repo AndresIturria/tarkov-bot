@@ -64,15 +64,15 @@ if __name__ == '__main__':
 
         else:
             killer_id = utilities.parse_userid(args[0])
-            killer_member = await ctx.guild.fetch_member(killer_id)
-            killer_name = killer_member.display_name
+            killer_name = await get_discord_username(ctx, killer_id)
+
             embed = discord.Embed(title=killer_name, color=0x03f8fc)
 
             killer = models.leaderboard.get_killer(ctx.guild.id, killer_id)
 
             for user in killer["killed"]:
-                member = await ctx.guild.fetch_member(user)
-                embed.add_field(name=member.display_name, value=killer["killed"][user])
+                member_name = await get_discord_username(ctx, user)
+                embed.add_field(name=member_name, value=killer["killed"][user])
 
             embed.add_field(name="Total", value=killer["total"])
             await ctx.channel.send(embed=embed)
